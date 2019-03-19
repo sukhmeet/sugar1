@@ -5,10 +5,16 @@ var alexa = require("alexa-app");
 var app = new alexa.app("sugar");
 
 app.launch(function(request, response) {
-  response
+  var request = require("sync-request");
+  console.log("DBP inside callback");
+  var res = request("GET", "https://api.keyvalue.xyz/deb0db97/mys_test");
+  response.say("The reading is " + res.getBody());
+  console.log("DBP3 End of callback");
+  response.shouldEndSession(true);
+  /*response
     .say("DBP1 Welcome to Alexa World")
     .reprompt("DBP1 Ask Something.")
-    .shouldEndSession(false);
+    .shouldEndSession(true);*/
 });
 
 app.error = function(exception, request, response) {
